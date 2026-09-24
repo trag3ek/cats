@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f6f2">
+<title>Котики</title>
+<style>
+  :root { color-scheme: light; --paper: #f8f6f2; --ink: #1b1a1f; --muted: #6d6a73; --grass: #84b35d; --sky: #85acd4; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); }
+  body { font: 17px/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif; padding: calc(28px + env(safe-area-inset-top, 0px)) 16px 32px; }
+  main { max-width: 26rem; margin: 0 auto; display: grid; gap: 14px; }
+  h1 { margin: 0 0 6px; font-size: 26px; text-wrap: balance; }
+  a { display: grid; gap: 2px; padding: 18px 18px 16px; border-radius: 14px; color: var(--paper); text-decoration: none; }
+  a b { font-size: 21px; }
+  a span { opacity: .9; font-size: 15px; }
+  a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .sakura { background: var(--grass); }
+  .winter { background: var(--sky); }
+  p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Котики</h1>
+  <a class="sakura" href="cherry-cat/"><b>Кошка в сакуре</b><span>Веди пальцем, тряси телефон, семь тапов зовут ворону</span></a>
+  <a class="winter" href="snow-cats/"><b>Коты в снегу</b><span>Гладь, дёргай за хвост, рисуй по снегу. Со звуком</span></a>
+  <p>Лучше всего на телефоне. Первый тап спросит доступ к датчикам движения.</p>
+</main>
+</body>
+</html>

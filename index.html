@@ -25,6 +25,16 @@
   .install { flex: 0 0 6.6rem; place-content: center; justify-items: center; gap: 6px; padding: 12px 10px; margin: 8px 8px 8px 0;
     background: rgba(255,255,255,.2); border-radius: 10px; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; }
   .install svg { width: 26px; height: 26px; }
+  /* what to do once the APK is downloading: a sheet from the bottom */
+  #how { position: fixed; inset: 0; display: none; align-items: end; justify-content: center; background: rgba(27,26,31,.45); }
+  #how.on { display: flex; }
+  #how > div { width: 100%; max-width: 26rem; box-sizing: border-box; margin: 0 8px calc(8px + env(safe-area-inset-bottom, 0px)); padding: 20px 20px 16px;
+    background: var(--paper); border-radius: 16px; display: grid; gap: 10px; }
+  #how h2 { margin: 0; font-size: 20px; }
+  #how ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+  #how .go, #how button { display: block; padding: 13px; border-radius: 10px; border: 0; font: inherit; font-weight: 600; text-align: center; }
+  #how .go { background: #cf8a80; color: var(--paper); }
+  #how button { background: #e9e4dc; color: var(--ink); }
   p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 </style>
 </head>
@@ -39,7 +49,41 @@
     <a class="install" href="https://github.com/trag3ek/cats/releases/latest/download/cats-wallpaper.apk" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3M10 18h4"/></svg>Установить живые обои</a>
   </div>
   <p>Лучше всего на телефоне. Первый тап спросит доступ к датчикам движения.</p>
-  <p>Живые обои с белым котёнком — приложение для Android: скачай файл и открой его, телефон попросит разрешить установку из этого источника. Под музыку котёнок надевает наушники.</p>
+  <p>Живые обои с белым котёнком — приложение для Android. Под музыку котёнок надевает наушники.</p>
 </main>
+<div id="how" role="dialog" aria-modal="true" aria-labelledby="how-t">
+  <div>
+    <h2 id="how-t">Скачиваем обои</h2>
+    <ol id="how-steps">
+      <li>Когда файл скачается, внизу экрана или в уведомлении появится «Открыть» — нажми.</li>
+      <li>Нажми «Установить». Если телефон спросит, разреши установку из браузера.</li>
+      <li>Открой приложение «Белый котик» и нажми «Поставить котика».</li>
+    </ol>
+    <a class="go" id="how-dl" href="intent:#Intent;action=android.intent.action.VIEW_DOWNLOADS;end">Открыть загрузки</a>
+    <button type="button" id="how-ok">Понятно</button>
+  </div>
+</div>
+<script>
+// A web page cannot install an APK: the phone downloads it and the user opens it. So on Android the
+// download starts and a sheet says what to tap next (and opens the Downloads list); elsewhere nothing
+// is downloaded and the sheet says the wallpaper is for Android.
+(function () {
+  var how = document.getElementById('how'), android = /Android/i.test(navigator.userAgent);
+  document.querySelector('.install').addEventListener('click', function (e) {
+    if (!android) {
+      e.preventDefault();
+      document.getElementById('how-t').textContent = 'Обои только для Android';
+      var steps = document.getElementById('how-steps');
+      steps.innerHTML = '<li>Открой эту страницу на Android-телефоне и нажми «Установить живые обои» там.</li>';
+      steps.style.cssText = 'list-style:none;padding:0';
+      document.getElementById('how-dl').style.display = 'none';
+    }
+    how.classList.add('on');
+  });
+  function close() { how.classList.remove('on'); }
+  document.getElementById('how-ok').addEventListener('click', close);
+  how.addEventListener('click', function (e) { if (e.target === how) close(); });
+})();
+</script>
 </body>
 </html>

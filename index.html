@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f8f6f2">
 <title>Котики</title>
+<script>
+// A phone in "desktop site" mode lays the page out ~980 px wide and everything comes out tiny:
+// scale it back up to the phone's own width.
+(function () {
+  var touch = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+  if (touch && screen.width && innerWidth > screen.width * 1.3) document.documentElement.style.zoom = (innerWidth / screen.width).toFixed(3);
+})();
+</script>
 <style>
   :root { color-scheme: light; --paper: #f8f6f2; --ink: #1b1a1f; --muted: #6d6a73; --grass: #84b35d; --sky: #85acd4; --graphite: #4a4a52; }
   html, body { margin: 0; background: var(--paper); color: var(--ink); }
@@ -64,13 +72,16 @@
   </div>
 </div>
 <script>
-// A web page cannot install an APK: the phone downloads it and the user opens it. So on Android the
-// download starts and a sheet says what to tap next (and opens the Downloads list); elsewhere nothing
-// is downloaded and the sheet says the wallpaper is for Android.
+// A web page cannot install an APK: the phone downloads it and the user opens it. So on a phone the
+// download starts and a sheet says what to tap next (and opens the Downloads list); on an iPhone or a
+// computer nothing is downloaded and the sheet says the wallpaper is for Android. A phone is told by its
+// touch screen, not its user agent: in "desktop site" mode Android calls itself Linux.
 (function () {
-  var how = document.getElementById('how'), android = /Android/i.test(navigator.userAgent);
+  var how = document.getElementById('how'), ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var phone = /Android/i.test(ua) || (window.matchMedia && matchMedia('(pointer: coarse)').matches);
   document.querySelector('.install').addEventListener('click', function (e) {
-    if (!android) {
+    if (ios || !phone) {
       e.preventDefault();
       document.getElementById('how-t').textContent = 'Обои только для Android';
       var steps = document.getElementById('how-steps');

@@ -19,6 +19,12 @@
   .winter { background: var(--sky); }
   .storm { background: var(--graphite); }
   .watercolor { background: #cf8a80; }
+  /* the watercolour card shares its row with the live-wallpaper download */
+  .row { display: flex; border-radius: 14px; background: #cf8a80; }
+  .row .watercolor { flex: 1; min-width: 0; }
+  .install { flex: 0 0 6.6rem; place-content: center; justify-items: center; gap: 6px; padding: 12px 10px; margin: 8px 8px 8px 0;
+    background: rgba(255,255,255,.2); border-radius: 10px; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; }
+  .install svg { width: 26px; height: 26px; }
   p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
 </style>
 </head>
@@ -28,8 +34,12 @@
   <a class="sakura" href="cherry-cat/"><b>Кошка в сакуре</b><span>Веди пальцем, тряси телефон, семь тапов зовут ворону</span></a>
   <a class="winter" href="snow-cats/"><b>Коты в снегу</b><span>Гладь, дёргай за хвост, рисуй по снегу. Со звуком</span></a>
   <a class="storm" href="storm-cat/"><b>Кот и гроза</b><span>Тапай в небо, гладь кота, свайп вверх — и он полетит. Со звуком</span></a>
-  <a class="watercolor" href="white-cat-watercolor/"><b>Белый котёнок</b><span>Гладь, чеши подбородок, тапни по носу, дай куснуть палец. Двойной тап по уху — наушники</span></a>
+  <div class="row">
+    <a class="watercolor" href="white-cat-watercolor/"><b>Белый котёнок</b><span>Гладь, чеши подбородок, тапни по носу, дай куснуть палец. Двойной тап по уху — наушники</span></a>
+    <a class="install" href="https://github.com/trag3ek/cats/releases/latest/download/cats-wallpaper.apk" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3M10 18h4"/></svg>Установить живые обои</a>
+  </div>
   <p>Лучше всего на телефоне. Первый тап спросит доступ к датчикам движения.</p>
+  <p>Живые обои с белым котёнком — приложение для Android: скачай файл и открой его, телефон попросит разрешить установку из этого источника. Под музыку котёнок надевает наушники.</p>
 </main>
 </body>
 </html>
